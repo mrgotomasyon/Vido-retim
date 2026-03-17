@@ -26,29 +26,89 @@ if (!WEBHOOK_URL) {
   console.log("[Bot] Polling modu aktif (geliştirme)");
 }
 
+// ── Ana menü klavyesi ─────────────────────────────────────────────────────────
+const MAIN_MENU = {
+  reply_markup: {
+    keyboard: [
+      [{ text: "🎬 Video Üret" }],
+      [{ text: "📊 Sistem Durumu" }, { text: "ℹ️ Yardım" }]
+    ],
+    resize_keyboard: true,
+    persistent: true
+  }
+};
+
+// Kullanıcıdan metin beklendiğinde gösterilen klavye
+const CANCEL_MENU = {
+  reply_markup: {
+    keyboard: [[{ text: "❌ İptal" }]],
+    resize_keyboard: true,
+    one_time_keyboard: true
+  }
+};
+
+// Kullanıcıların metin girişi bekleme durumu
+const awaitingText = new Set();
+
 // ── Mesaj işleyici ────────────────────────────────────────────────────────────
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
   const text   = (msg.text || "").trim();
 
-  // /start ve /help
-  if (!text || text === "/start" || text === "/help") {
+  // ── /start, /help veya menü butonu ────────────────────────────────────────
+  if (!text || text === "/start" || text === "ℹ️ Yardım" || text === "/help") {
+    awaitingText.delete(chatId);
     return bot.sendMessage(chatId,
       "🎬 *ALGEONEX Video Üretici*\n\n" +
-      "Seslendirilecek reklam metnini buraya yaz.\n" +
-      "Sistem ~2-3 dakikada Instagram videosu üretir.\n\n" +
-      "📝 *Örnek metin:*\n" +
-      "_AI tabanlı büyüme başladı\\! Rakiplerin öneriliyor\\. " +
-      "Siz hâlâ sadece arama sonuçlarında mısınız? " +
-      "Ücretsiz AI analizinizi alın\\. Algeonex\\.com\\._",
-      { parse_mode: "MarkdownV2" }
+      "Reklam videon için metin yaz, ben seslendirip 1080p video üreteyim\\.\n\n" +
+      "📝 *Örnek:*\n" +
+      "_AI tabanlı büyüme başladı\\! Ücretsiz AI analizinizi alın\\. Algeonex\\.com_\n\n" +
+      "👇 Aşağıdaki menüden seçim yap:",
+      { parse_mode: "MarkdownV2", ...MAIN_MENU }
     );
+  }
+
+  // ── Sistem durumu ──────────────────────────────────────────────────────────
+  if (text === "📊 Sistem Durumu" || text === "/status") {
+    const durumu = global.templateReady
+      ? "✅ Sistem hazır"
+      : "⏳ Şablon üretiliyor \\(~5\\-8 dk\\)";
+    return bot.sendMessage(chatId,
+      `*Sistem Durumu*\n\n${durumu}\n\n_ALGEONEX AI Video Bot_`,
+      { parse_mode: "MarkdownV2", ...MAIN_MENU }
+    );
+  }
+
+  // ── Video üret butonu ──────────────────────────────────────────────────────
+  if (text === "🎬 Video Üret" || text === "/video") {
+    awaitingText.add(chatId);
+    return bot.sendMessage(chatId,
+      "✏️ *Reklam metnini yaz:*\n\n" +
+      "Minimum 10 karakter\\. İptal etmek için ❌ butonunu kullan\\.",
+      { parse_mode: "MarkdownV2", ...CANCEL_MENU }
+    );
+  }
+
+  // ── İptal ──────────────────────────────────────────────────────────────────
+  if (text === "❌ İptal") {
+    awaitingText.delete(chatId);
+    return bot.sendMessage(chatId, "↩️ İptal edildi\\.", { parse_mode: "MarkdownV2", ...MAIN_MENU });
   }
 
   if (text.startsWith("/")) return; // diğer komutları yoksay
 
+  // Menüden "Video Üret" seçilmeden doğrudan metin gönderilmişse yönlendir
+  if (!awaitingText.has(chatId)) {
+    return bot.sendMessage(chatId,
+      "👇 Video üretmek için menüden *🎬 Video Üret* seçeneğini kullan\\.",
+      { parse_mode: "MarkdownV2", ...MAIN_MENU }
+    );
+  }
+
+  awaitingText.delete(chatId);
+
   if (text.length < 10) {
-    return bot.sendMessage(chatId, "⚠️ Lütfen en az 10 karakterlik bir metin gönder.");
+    return bot.sendMessage(chatId, "⚠️ Lütfen en az 10 karakterlik bir metin gönder\\.", { parse_mode: "MarkdownV2", ...MAIN_MENU });
   }
 
   // Arka plan template üretimi devam ediyorsa beklet
@@ -57,7 +117,7 @@ bot.on("message", async (msg) => {
       "⏳ Sistem ilk kez başlatılıyor\\.\n\n" +
       "Arka plan şablonu üretiliyor \\(~5\\-8 dakika\\)\\. " +
       "Hazır olunca tekrar dene\\.",
-      { parse_mode: "MarkdownV2" }
+      { parse_mode: "MarkdownV2", ...MAIN_MENU }
     );
   }
 
@@ -86,7 +146,8 @@ bot.on("message", async (msg) => {
     await bot.sendVideo(chatId, videoPath, {
       caption:            `✅ *Video hazır\\!* \\(${mb} MB\\)\n📱 1080×1920 @ 30fps\n\n_ALGEONEX AI Video_`,
       parse_mode:         "MarkdownV2",
-      supports_streaming: true
+      supports_streaming: true,
+      ...MAIN_MENU
     });
 
   } catch (err) {
@@ -96,7 +157,7 @@ bot.on("message", async (msg) => {
     await bot.deleteMessage(chatId, waitMsg.message_id).catch(() => {});
     await bot.sendMessage(chatId,
       `❌ *Üretim başarısız:*\n\`${escapeMarkdown(err.message.slice(0, 300))}\`\n\nTekrar dene\\.`,
-      { parse_mode: "MarkdownV2" }
+      { parse_mode: "MarkdownV2", ...MAIN_MENU }
     );
   }
 });
