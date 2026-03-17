@@ -148,7 +148,7 @@ bot.on("message", async (msg) => {
 
     const urlLine = videoUrl ? `\n🔗 ${escapeMarkdown(videoUrl)}` : "";
     await bot.sendVideo(chatId, videoPath, {
-      caption:            `✅ *Video hazır\\!* \\(${mb} MB\\)\n📱 1080×1920 @ 30fps${urlLine}\n\n_ALGEONEX AI Video_`,
+      caption:            `✅ *Video hazır\\!* \\(${escapeMarkdown(mb)} MB\\)\n📱 1080×1920 @ 30fps${urlLine}\n\n_ALGEONEX AI Video_`,
       parse_mode:         "MarkdownV2",
       supports_streaming: true,
       ...MAIN_MENU
