@@ -72,7 +72,7 @@ bot.on("message", async (msg) => {
   if (text === "📊 Sistem Durumu" || text === "/status") {
     const durumu = global.templateReady
       ? "✅ Sistem hazır"
-      : "⏳ Şablon üretiliyor \\(~5\\-8 dk\\)";
+      : "⏳ Şablon üretiliyor \\(\\~5\\-8 dk\\)";
     return bot.sendMessage(chatId,
       `*Sistem Durumu*\n\n${durumu}\n\n_ALGEONEX AI Video Bot_`,
       { parse_mode: "MarkdownV2", ...MAIN_MENU }
@@ -115,7 +115,7 @@ bot.on("message", async (msg) => {
   if (global.templateReady === false) {
     return bot.sendMessage(chatId,
       "⏳ Sistem ilk kez başlatılıyor\\.\n\n" +
-      "Arka plan şablonu üretiliyor \\(~5\\-8 dakika\\)\\. " +
+      "Arka plan şablonu üretiliyor \\(\\~5\\-8 dakika\\)\\. " +
       "Hazır olunca tekrar dene\\.",
       { parse_mode: "MarkdownV2", ...MAIN_MENU }
     );
@@ -123,8 +123,7 @@ bot.on("message", async (msg) => {
 
   // ── Üretim başlasın ───────────────────────────────────────────────────────
   const waitMsg = await bot.sendMessage(chatId,
-    "⏳ *Video üretiliyor...*\n\n" +
-    "~2\\-3 dakika sürer\\. Hazır olunca direkt gönderilecek\\.",
+    "⏳ *Video üretiliyor\\.\\.\\.* \\(2\\-3 dakika\\)\nHazır olunca direkt gönderilecek\\.",
     { parse_mode: "MarkdownV2" }
   );
 
