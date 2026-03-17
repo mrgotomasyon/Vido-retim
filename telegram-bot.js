@@ -137,14 +137,19 @@ bot.on("message", async (msg) => {
     const videoPath = await produceVideo({ text });
     clearInterval(typing);
 
-    const stat = await fs.stat(videoPath);
-    const mb   = (stat.size / 1024 / 1024).toFixed(1);
+    const stat    = await fs.stat(videoPath);
+    const mb      = (stat.size / 1024 / 1024).toFixed(1);
+    // Build public URL from the renders static route
+    const relPath = videoPath.replace(/\\/g, "/").split("/renders/")[1];
+    const videoUrl = WEBHOOK_URL ? `${WEBHOOK_URL}/renders/${relPath}` : null;
+    if (videoUrl) console.log(`[Bot] Video URL: ${videoUrl}`);
 
     // Bekleme mesajını sil
     await bot.deleteMessage(chatId, waitMsg.message_id).catch(() => {});
 
+    const urlLine = videoUrl ? `\n🔗 ${escapeMarkdown(videoUrl)}` : "";
     await bot.sendVideo(chatId, videoPath, {
-      caption:            `✅ *Video hazır\\!* \\(${mb} MB\\)\n📱 1080×1920 @ 30fps\n\n_ALGEONEX AI Video_`,
+      caption:            `✅ *Video hazır\\!* \\(${mb} MB\\)\n📱 1080×1920 @ 30fps${urlLine}\n\n_ALGEONEX AI Video_`,
       parse_mode:         "MarkdownV2",
       supports_streaming: true,
       ...MAIN_MENU
