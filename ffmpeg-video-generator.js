@@ -52,6 +52,12 @@ async function runFfmpeg(args) {
 function resolveFontPath() {
   const windir = process.env.WINDIR || "C:/Windows";
   const candidates = [
+    // Linux / Docker (fonts-liberation, fonts-dejavu-core)
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    // Windows
     path.join(windir, "Fonts", "bahnschrift.ttf"),
     path.join(windir, "Fonts", "segoeuib.ttf"),
     path.join(windir, "Fonts", "arialbd.ttf"),
