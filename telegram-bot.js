@@ -51,6 +51,16 @@ bot.on("message", async (msg) => {
     return bot.sendMessage(chatId, "⚠️ Lütfen en az 10 karakterlik bir metin gönder.");
   }
 
+  // Arka plan template üretimi devam ediyorsa beklet
+  if (global.templateReady === false) {
+    return bot.sendMessage(chatId,
+      "⏳ Sistem ilk kez başlatılıyor\\.\n\n" +
+      "Arka plan şablonu üretiliyor \\(~5\\-8 dakika\\)\\. " +
+      "Hazır olunca tekrar dene\\.",
+      { parse_mode: "MarkdownV2" }
+    );
+  }
+
   // ── Üretim başlasın ───────────────────────────────────────────────────────
   const waitMsg = await bot.sendMessage(chatId,
     "⏳ *Video üretiliyor...*\n\n" +
