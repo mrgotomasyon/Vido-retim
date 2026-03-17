@@ -28,7 +28,18 @@ async function generateTemplateBackground() {
       env: { ...process.env, ALGEONEX_RENDER_DIR: RENDER_BASE }
     }, (err) => {
       if (err) {
-        console.error("[Startup] bg-template.mp4 üretim hatası:", err.message);
+        console.error("[Startup] Veo3 şablon hatası:", err.message);
+        console.log("[Startup] FFmpeg fallback şablonu oluşturuluyor...");
+        execFile("node", [path.join(__dirname, "generate-template-bg-fallback.js")], {
+          env: { ...process.env, ALGEONEX_RENDER_DIR: RENDER_BASE }
+        }, (err2) => {
+          if (err2) {
+            console.error("[Startup] Fallback şablon hatası:", err2.message);
+          } else {
+            console.log("[Startup] bg-template.mp4 hazır ✅ (FFmpeg fallback)");
+            global.templateReady = true;
+          }
+        });
       } else {
         console.log("[Startup] bg-template.mp4 hazır ✅");
         global.templateReady = true;
