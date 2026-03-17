@@ -1,0 +1,42 @@
+{
+  "timeline": {
+    "hook": {
+      "start": 0,
+      "end": 2
+    },
+    "value": {
+      "start": 2,
+      "end": 7
+    },
+    "cta": {
+      "start": 7,
+      "end": 10
+    }
+  },
+  "style": {
+    "safeMargin": 72,
+    "titleWidthRatio": 0.82,
+    "subtitleWidthRatio": 0.84,
+    "titleFade": 0.38,
+    "subtitleFade": 0.28,
+    "overlayOpacity": 0.4,
+    "titleLineSpacing": 12,
+    "subtitleLineSpacing": 8
+  },
+  "typography": {
+    "portrait": {
+      "title": 72,
+      "stat": 58,
+      "cta": 70,
+      "subtitle": 34,
+      "brand": 24
+    },
+    "landscape": {
+      "title": 58,
+      "stat": 48,
+      "cta": 54,
+      "subtitle": 28,
+      "brand": 24
+    }
+  }
+}

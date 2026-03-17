@@ -1,0 +1,22 @@
+{
+  "name": "ALGEONEX",
+  "url": "algeonex.com",
+  "focus": "AI Search Visibility Platform",
+  "coreMessage": "AI çağında sadece aranmak yetmez, önerilmek zorundasın.",
+  "proofPoints": [
+    "%5-15 daha fazla AI trafiği",
+    "5 kat daha fazla önerilme"
+  ],
+  "channels": [
+    "ChatGPT",
+    "Gemini",
+    "Perplexity"
+  ],
+  "colors": {
+    "darkBg":   "#111827",
+    "mainBlue": "#1E3A8A",
+    "orange":   "#F59E0B",
+    "white":    "#FFFFFF",
+    "navy":     "#111827"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "instagram": {
+    "key": "instagram",
+    "label": "Instagram Reels",
+    "width": 1080,
+    "height": 1920,
+    "duration": 10,
+    "fps": 30,
+    "codec": "libx264",
+    "audioCodec": "aac",
+    "ratio": "9:16",
+    "tone": "direct"
+  },
+  "facebook": {
+    "key": "facebook",
+    "label": "Facebook Reels",
+    "width": 1080,
+    "height": 1920,
+    "duration": 10,
+    "fps": 30,
+    "codec": "libx264",
+    "audioCodec": "aac",
+    "ratio": "9:16",
+    "tone": "confident"
+  },
+  "linkedin": {
+    "key": "linkedin",
+    "label": "LinkedIn Video",
+    "width": 1080,
+    "height": 1920,
+    "duration": 10,
+    "fps": 30,
+    "codec": "libx264",
+    "audioCodec": "aac",
+    "ratio": "9:16",
+    "tone": "corporate"
+  },
+  "x": {
+    "key": "x",
+    "label": "X Video",
+    "width": 1600,
+    "height": 900,
+    "duration": 10,
+    "fps": 30,
+    "codec": "libx264",
+    "audioCodec": "aac",
+    "ratio": "16:9",
+    "tone": "fast"
+  }
+}

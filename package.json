@@ -1,0 +1,25 @@
+{
+  "name": "algeonex-ai-video-dashboard",
+  "version": "1.0.0",
+  "description": "ALGEONEX icin gorsel ve icerik yukleyerek otomatik sosyal medya videosu ureten dashboard sistemi.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node startup.js",
+    "bot": "node telegram-bot.js",
+    "produce": "node full-production.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "axios": "^1.13.6",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.2",
+    "ffmpeg-static": "^5.2.0",
+    "multer": "^1.4.5-lts.1",
+    "node-edge-tts": "^1.2.10",
+    "node-telegram-bot-api": "^0.67.0"
+  }
+}

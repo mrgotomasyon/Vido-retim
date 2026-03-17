@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALGEONEX AI Video Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">ALGEONEX / AI Video Automation</p>
+          <h1>Görsel ve metinden 10 saniyelik sosyal medya videosu üretin.</h1>
+          <p class="hero-text">
+            Dashboard, içeriği analiz eder, reklam metnini güçlendirir, Türkçe
+            voiceover üretir ve platform formatına uygun videoyu FFmpeg ile
+            render eder.
+          </p>
+          <div class="hero-pills" id="brandPills">
+            <span>ChatGPT</span>
+            <span>Gemini</span>
+            <span>Perplexity</span>
+          </div>
+          <div class="hero-pills hero-pills-secondary">
+            <span>algeonex.com</span>
+            <span>TR Voiceover</span>
+            <span>10 saniye</span>
+            <span>4 platform</span>
+          </div>
+        </div>
+        <div class="hero-metrics">
+          <article>
+            <span>Render motoru</span>
+            <strong>FFmpeg Pipeline</strong>
+          </article>
+          <article>
+            <span>Ses üretimi</span>
+            <strong>Türkçe TTS</strong>
+          </article>
+          <article>
+            <span>Çıkış formatı</span>
+            <strong>H.264 / 30 FPS</strong>
+          </article>
+        </div>
+      </header>
+
+      <section class="kpis">
+        <article class="kpi">
+          <span class="label">Aktif Platform</span>
+          <strong class="num gradient" id="kpiPlatformCount">4</strong>
+        </article>
+        <article class="kpi">
+          <span class="label">Standart Sure</span>
+          <strong class="num gradient">10s</strong>
+        </article>
+        <article class="kpi">
+          <span class="label">Toplam Sahne</span>
+          <strong class="num gradient">3</strong>
+        </article>
+        <article class="kpi">
+          <span class="label">Pipeline Adim</span>
+          <strong class="num gradient">8</strong>
+        </article>
+        <article class="kpi">
+          <span class="label">Son Render</span>
+          <strong class="num gradient" id="kpiRecentCount">0</strong>
+        </article>
+      </section>
+
+      <section class="planner-grid">
+        <article class="panel planner-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Platform ve Format</p>
+            <h2>Preset secimi</h2>
+          </div>
+          <div class="platform-grid">
+            <button class="platform-card active" type="button" data-platform-card data-platform="instagram">
+              <span class="platform-icon">IG</span>
+              <strong>Instagram</strong>
+              <small>1080x1920 • Dikey • 10s</small>
+            </button>
+            <button class="platform-card" type="button" data-platform-card data-platform="facebook">
+              <span class="platform-icon">FB</span>
+              <strong>Facebook</strong>
+              <small>1080x1920 • Dikey • 10s</small>
+            </button>
+            <button class="platform-card" type="button" data-platform-card data-platform="linkedin">
+              <span class="platform-icon">IN</span>
+              <strong>LinkedIn</strong>
+              <small>1080x1920 • Dikey • 10s</small>
+            </button>
+            <button class="platform-card" type="button" data-platform-card data-platform="x">
+              <span class="platform-icon">X</span>
+              <strong>X</strong>
+              <small>1600x900 • Yatay • 10s</small>
+            </button>
+          </div>
+          <div class="platform-note">
+            Secilen platform, asagidaki formdaki platform alanini otomatik gunceller.
+          </div>
+        </article>
+
+        <article class="panel planner-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Otomatik Pipeline</p>
+            <h2>Uretim hatti</h2>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <span class="step-num">1</span>
+              <div class="step-copy">
+                <strong>Girdi al</strong>
+                <span>Platform secimi, gorsel upload ve icerik metni.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-num">2</span>
+              <div class="step-copy">
+                <strong>Metni analiz et</strong>
+                <span>Anahtar kelime, metrik ve aci cikar.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-num">3</span>
+              <div class="step-copy">
+                <strong>Reklam copy uret</strong>
+                <span>Hook, value proposition ve CTA olustur.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-num">4</span>
+              <div class="step-copy">
+                <strong>Turkce voiceover</strong>
+                <span>Windows TTS ile seslendirme WAV dosyasi uret.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-num">5</span>
+              <div class="step-copy">
+                <strong>Sahne plani</strong>
+                <span>0-2 hook, 2-7 fayda, 7-10 CTA kurgusu.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-num">6</span>
+              <div class="step-copy">
+                <strong>Overlay ve timeline</strong>
+                <span>Title, subtitle ve marka katmanlarini yerlestir.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-num">7</span>
+              <div class="step-copy">
+                <strong>Mix ve render</strong>
+                <span>Voice 100, music 25 olacak sekilde FFmpeg render.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-num">8</span>
+              <div class="step-copy">
+                <strong>Preview ve download</strong>
+                <span>Dashboard icinde izleme, voice ve video indirme.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <main class="dashboard-grid">
+        <section class="panel input-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Kampanya Girdisi</p>
+            <h2>Video üretimi başlat</h2>
+          </div>
+
+          <form id="generatorForm" class="generator-form">
+            <label class="field">
+              <span>Platform</span>
+              <select id="platform" name="platform" required>
+                <option value="instagram">Instagram Reels • 1080x1920 • 10s</option>
+                <option value="facebook">Facebook Reels • 1080x1920 • 10s</option>
+                <option value="linkedin">LinkedIn Video • 1080x1920 • 10s</option>
+                <option value="x">X Video • 1600x900 • 10s</option>
+              </select>
+            </label>
+
+            <label class="field upload-field">
+              <span>Görsel yükle <em style="font-weight:400;color:#72f0ff;font-size:0.82em;">(opsiyonel)</em></span>
+              <input id="image" name="image" type="file" accept="image/*" />
+              <small>PNG, JPG veya WEBP. Yüklemezseniz otomatik koyu arka plan oluşturulur.</small>
+            </label>
+
+            <div class="image-preview" id="imagePreview">
+              <p>Görsel yüklenirse önizleme burada görünür. Yüklemeden de video üretilebilir.</p>
+            </div>
+
+            <label class="field">
+              <span>İçerik metni</span>
+              <textarea
+                id="content"
+                name="content"
+                rows="10"
+                placeholder="ALGEONEX ile markanızı ChatGPT, Gemini ve Perplexity gibi AI motorlarında daha görünür hale getirin. Daha fazla trafik, daha fazla önerilme ve ölçülebilir büyüme elde edin."
+                required
+              ></textarea>
+              <small>Bu metin analiz edilerek hook, value proposition ve CTA oluşturulur.</small>
+            </label>
+
+            <button class="primary-button" id="generateButton" type="submit">
+              Video üret
+            </button>
+          </form>
+        </section>
+
+        <section class="panel status-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Üretim Durumu</p>
+            <h2>Pipeline takibi</h2>
+          </div>
+
+          <div class="status-card">
+            <div class="status-topline">
+              <strong id="statusPhase">Hazır</strong>
+              <span id="statusPercent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p id="statusMessage">
+              Görselinizi yükleyin, platformu seçin ve üretimi başlatın.
+            </p>
+          </div>
+
+          <div class="status-log" id="statusLog"></div>
+
+          <div class="result-stack">
+            <article class="result-card">
+              <span>Hook</span>
+              <strong id="hookOutput">Henüz üretilmedi.</strong>
+            </article>
+            <article class="result-card">
+              <span>Value Proposition</span>
+              <strong id="valueOutput">Henüz üretilmedi.</strong>
+            </article>
+            <article class="result-card">
+              <span>CTA</span>
+              <strong id="ctaOutput">Henüz üretilmedi.</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel preview-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Preview ve Download</p>
+            <h2>Oluşturulan video</h2>
+          </div>
+
+          <div class="video-shell">
+            <video id="videoPreview" controls playsinline></video>
+            <div class="video-placeholder" id="videoPlaceholder">
+              Render tamamlandığında video burada oynatılır.
+            </div>
+          </div>
+
+          <div class="preview-actions">
+            <a id="downloadLink" class="secondary-button disabled-link" href="#">
+              Video indir
+            </a>
+            <a id="voiceLink" class="ghost-link disabled-link" href="#">Voice dosyası</a>
+          </div>
+        </section>
+
+        <section class="panel insights-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Üretim Çıktıları</p>
+            <h2>Sahne planı ve render komutu</h2>
+          </div>
+
+          <div class="insight-grid">
+            <article class="insight-card">
+              <h3>Voiceover</h3>
+              <p id="voiceoverOutput">Henüz üretilmedi.</p>
+            </article>
+            <article class="insight-card">
+              <h3>Analiz Özeti</h3>
+              <div id="analysisOutput" class="analysis-list"></div>
+            </article>
+            <article class="insight-card full-span">
+              <h3>Sahne Planı</h3>
+              <div id="scenePlanOutput" class="scene-plan"></div>
+            </article>
+            <article class="insight-card full-span">
+              <h3>FFmpeg Render Komutu</h3>
+              <pre id="commandOutput">Henüz üretilmedi.</pre>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel recent-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Son Renderlar</p>
+            <h2>Dashboard arşivi</h2>
+          </div>
+          <div id="recentRenders" class="recent-renders"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
