@@ -133,8 +133,10 @@ bot.on("message", async (msg) => {
 
     const stat    = await fs.stat(videoPath);
     const mb      = (stat.size / 1024 / 1024).toFixed(1);
-    // Build public URL from the renders static route
-    const relPath = videoPath.replace(/\\/g, "/").split("/renders/")[1];
+    // Build public URL: static route serves RENDER_BASE/renders/ at /renders/
+    // videoPath = RENDER_BASE/renders/jobId/file.mp4 → relPath = jobId/file.mp4
+    const renderBase = path.join(RENDER_BASE, "renders").replace(/\\/g, "/");
+    const relPath = videoPath.replace(/\\/g, "/").replace(renderBase + "/", "");
     const videoUrl = WEBHOOK_URL ? `${WEBHOOK_URL}/renders/${relPath}` : null;
     if (videoUrl) console.log(`[Bot] Video URL: ${videoUrl}`);
 
@@ -185,7 +187,8 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok", time: new Date().toISOString(), mode: WEBHOOK_URL ? "webhook" : "polling" });
 });
 
-// Render dosyalarına HTTP erişim (opsiyonel debug)
+// Render dosyalarına HTTP erişim
+// RENDER_BASE/renders/jobId/file.mp4 → /renders/jobId/file.mp4
 app.use("/renders", express.static(path.join(RENDER_BASE, "renders")));
 
 app.listen(PORT, async () => {
