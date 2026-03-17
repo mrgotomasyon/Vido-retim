@@ -27,18 +27,15 @@ async function main() {
 
   console.log("[Fallback] FFmpeg ile arka plan şablonu oluşturuluyor (~10 saniye)...");
 
-  // Dark navy/blue/purple animated gradient using YCbCr oscillation:
-  //   Y  ≈ 13-33  (very dark)
-  //   Cb ≈ 98-178 (blue variation)
-  //   Cr ≈ 93-153 (purple variation)
-  // Two lavfi inputs: animated video + silent audio track
-  // Audio is required so extractVideoAudio can produce music-bed.m4a
+  // Dark navy/purple background with subtle film-grain animation.
+  // Uses format=yuv420p to ensure correct color space (geq had RGB/YUV mismatch).
+  // noise=alls=6:allf=t adds per-frame temporal grain → looks animated without color issues.
   await new Promise((resolve, reject) => {
     execFile(FFMPEG, [
       "-y",
       "-f", "lavfi", "-i", "color=c=#060d1e:s=1080x1920:r=30",
       "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
-      "-vf", "geq=lum='13+20*sin(2*PI*T/5+X/300)':cb='138+40*sin(2*PI*T/7+Y/400)':cr='123+30*cos(2*PI*T/6+X/250+Y/350)'",
+      "-vf", "format=yuv420p,noise=alls=6:allf=t",
       "-t", "10",
       "-c:v", "libx264", "-preset", "ultrafast", "-crf", "23",
       "-c:a", "aac", "-b:a", "128k",
