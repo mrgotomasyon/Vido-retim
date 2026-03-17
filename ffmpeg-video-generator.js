@@ -327,13 +327,13 @@ async function renderVideo({
 
   // ── Typography ──
   const ty = {
-    logo:   isLS ? 62 : 76,   // prominent brand size
-    hookL1: isLS ? 82 : 100,  // bigger, bolder hook
-    hookL2: isLS ? 74 : 92,
-    valL1:  isLS ? 66 : 82,
-    valL2:  isLS ? 62 : 76,
-    ctaL1:  isLS ? 60 : 78,   // CTA large
-    ctaL2:  isLS ? 42 : 52    // URL
+    logo:   isLS ? 58 : 66,   // prominent brand size
+    hookL1: isLS ? 70 : 78,   // portrait: 78px → ~14 chars safe at 1080w
+    hookL2: isLS ? 62 : 70,
+    valL1:  isLS ? 58 : 68,
+    valL2:  isLS ? 54 : 62,
+    ctaL1:  isLS ? 54 : 66,   // CTA large
+    ctaL2:  isLS ? 38 : 46    // URL
   };
 
   // ── Layout — text below Veo3 orb cluster (72% = dark lower zone) ──
