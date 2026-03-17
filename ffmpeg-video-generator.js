@@ -3,7 +3,8 @@
 const fs   = require("fs/promises");
 const path = require("path");
 const { spawn } = require("child_process");
-const ffmpegPath = require("ffmpeg-static");
+const _ffmpegStatic = require("ffmpeg-static");
+const ffmpegPath = require("fs").existsSync("/usr/bin/ffmpeg") ? "/usr/bin/ffmpeg" : _ffmpegStatic;
 const { generateAIBackground, buildPrompt } = require("./kie-background"); // fallback only
 const { generateSunoMusic: sunoMusicGen } = require("./kie-music");
 
@@ -701,7 +702,8 @@ async function renderVideo({
 // Applies volume reduction + fade in/out to match video duration
 // ---------------------------------------------------------------------------
 async function extractVideoAudio(videoPath, outputPath, duration) {
-  const ffmpegBin = require("ffmpeg-static");
+  const _ffmpegStatic2 = require("ffmpeg-static");
+  const ffmpegBin = require("fs").existsSync("/usr/bin/ffmpeg") ? "/usr/bin/ffmpeg" : _ffmpegStatic2;
   const { execFile } = require("child_process");
 
   const fadeOut = Math.max(0, duration - 1.2);

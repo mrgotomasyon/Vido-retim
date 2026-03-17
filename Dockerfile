@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxext6 \
     fonts-liberation \
     fonts-dejavu-core \
+    ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

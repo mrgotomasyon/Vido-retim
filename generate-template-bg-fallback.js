@@ -8,7 +8,8 @@ require("dotenv").config();
 const path = require("path");
 const fs   = require("fs/promises");
 const { execFile } = require("child_process");
-const FFMPEG = require("ffmpeg-static");
+const _ffmpegStatic = require("ffmpeg-static");
+const FFMPEG = require("fs").existsSync("/usr/bin/ffmpeg") ? "/usr/bin/ffmpeg" : _ffmpegStatic;
 
 const RENDER_BASE = process.env.ALGEONEX_RENDER_DIR || "/data/renders";
 
