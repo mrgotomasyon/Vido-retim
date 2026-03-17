@@ -5,7 +5,10 @@ node_modules/
 
 # Render çıktıları (büyük dosyalar)
 renders/
-voice/
+voice/*.mp3
+voice/*.wav
+voice/*.m4a
+voice/*.ogg
 
 # Medya dosyaları
 *.mp4
