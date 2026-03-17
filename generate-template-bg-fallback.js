@@ -30,17 +30,18 @@ async function main() {
   //   Y  ≈ 13-33  (very dark)
   //   Cb ≈ 98-178 (blue variation)
   //   Cr ≈ 93-153 (purple variation)
+  // Two lavfi inputs: animated video + silent audio track
+  // Audio is required so extractVideoAudio can produce music-bed.m4a
   await new Promise((resolve, reject) => {
     execFile(FFMPEG, [
       "-y",
-      "-f", "lavfi",
-      "-i", "color=c=#060d1e:s=1080x1920:r=30",
+      "-f", "lavfi", "-i", "color=c=#060d1e:s=1080x1920:r=30",
+      "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
       "-vf", "geq=lum='13+20*sin(2*PI*T/5+X/300)':cb='138+40*sin(2*PI*T/7+Y/400)':cr='123+30*cos(2*PI*T/6+X/250+Y/350)'",
       "-t", "10",
-      "-c:v", "libx264",
-      "-preset", "ultrafast",
-      "-crf", "23",
-      "-an",
+      "-c:v", "libx264", "-preset", "ultrafast", "-crf", "23",
+      "-c:a", "aac", "-b:a", "128k",
+      "-shortest",
       outputPath
     ], (err) => err ? reject(err) : resolve());
   });
