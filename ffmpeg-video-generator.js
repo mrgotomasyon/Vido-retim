@@ -336,8 +336,8 @@ async function renderVideo({
     ctaL2:  isLS ? 38 : 46    // URL
   };
 
-  // ── Layout — text below Veo3 orb cluster (72% = dark lower zone) ──
-  const textMidY = H * 0.72;
+  // ── Layout — text below Veo3 orb cluster (67% = slightly higher, breathing room) ──
+  const textMidY = H * 0.67;
   const lineGap  = 22;
   const pos = {
     logo:   Math.round(H * 0.14),   // koyu gökyüzü bölgesinde, büyük ve görünür
