@@ -709,6 +709,7 @@ async function extractVideoAudio(videoPath, outputPath, duration) {
   const fadeOut = Math.max(0, duration - 1.2);
   const args = [
     "-y",
+    "-stream_loop", "-1",           // template kısa ise döngüye al (müzik tüm video boyunca devam eder)
     "-i", videoPath,
     "-vn",                          // no video
     "-t", String(duration + 0.5),   // slightly longer than target

@@ -12,6 +12,25 @@ const WEBHOOK_URL = process.env.WEBHOOK_URL;   // ör: https://video.example.com
 const PORT        = parseInt(process.env.PORT || "3000", 10);
 const RENDER_BASE = process.env.ALGEONEX_RENDER_DIR || "C:/Users/Public/algeonex-render";
 
+const axios = require("axios");
+const TEMPLATE_BG    = require("path").join(RENDER_BASE, "template", "bg-template.mp4");
+const KIE_BG_VIDEO_URL = process.env.KIE_BG_VIDEO_URL; // KIE video URL → bg-template olarak indir
+
+async function ensureBgTemplate() {
+  const fss = require("fs/promises");
+  await fss.mkdir(require("path").dirname(TEMPLATE_BG), { recursive: true });
+  try { await fss.access(TEMPLATE_BG); return; } catch { /* indir */ }
+  if (!KIE_BG_VIDEO_URL) return;
+  console.log("[Setup] bg-template.mp4 indiriliyor:", KIE_BG_VIDEO_URL);
+  try {
+    const resp = await axios.get(KIE_BG_VIDEO_URL, { responseType: "arraybuffer", timeout: 120000 });
+    await fss.writeFile(TEMPLATE_BG, Buffer.from(resp.data));
+    console.log("[Setup] ✅ bg-template.mp4 hazır");
+  } catch (err) {
+    console.warn("[Setup] bg-template indirilemedi:", err.message);
+  }
+}
+
 if (!TOKEN) {
   console.error("❌ TELEGRAM_TOKEN env var eksik!");
   process.exit(1);
@@ -193,6 +212,11 @@ app.use("/renders", express.static(path.join(RENDER_BASE, "renders")));
 
 app.listen(PORT, async () => {
   console.log(`[Bot] Sunucu port ${PORT}'de başladı`);
+
+  // Arka plan videosu + müzik önbelleği
+  await ensureBgTemplate();
+  const { ensureMusicBed } = require("./lib/music-cache");
+  ensureMusicBed().catch(err => console.warn("[Setup] Müzik önbellek:", err.message));
 
   if (WEBHOOK_URL) {
     const fullUrl = `${WEBHOOK_URL}${WEBHOOK_PATH}`;
